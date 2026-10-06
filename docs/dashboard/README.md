@@ -704,7 +704,7 @@ Rate Limiting keeps a request counter for every visitor IP address that a rule o
 
 Click <span class="notranslate">**CHANGE**</span> to edit them.
 
-![](/images/rate_limiting_admin_defaults.png)
+<img src="/images/rate_limiting_admin_defaults.png" alt="The Change default settings dialog" width="544">
 
 | Field | Description |
 |-|-|
@@ -753,7 +753,7 @@ Use <span class="notranslate">**Filter by**</span> to narrow the list down by <s
 
 Click <span class="notranslate">**ADD**</span> and fill in the form. A new rule takes effect immediately.
 
-![](/images/rate_limiting_admin_add_rule.png)
+<img src="/images/rate_limiting_admin_add_rule.png" alt="The Add rule dialog of the administrator" width="544">
 
 | Field | Description |
 |-|-|
@@ -784,7 +784,7 @@ When <span class="notranslate">**Show the service to end users**</span> is on, e
 
 A rule that belongs to an end user can only be inspected, not changed: its <span class="notranslate">Active</span> switch is disabled and the only action available is <span class="notranslate">**View**</span>, which opens the rule read-only. Only the owner can change or remove it; the <span class="notranslate">`imunify360-wsctl l7prot`</span> commands refuse it as well.
 
-![](/images/rate_limiting_admin_rule_details.png)
+<img src="/images/rate_limiting_admin_rule_details.png" alt="The read-only Rule details dialog for a rule of an end user" width="544">
 
 Turning <span class="notranslate">**Show the service to end users**</span> off hides the tab from end users, but the rules they have created keep applying.
 

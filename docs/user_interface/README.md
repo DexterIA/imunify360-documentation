@@ -180,7 +180,7 @@ You only see and manage the rules you created, for the domains of your own accou
 
 Click <span class="notranslate">**ADD**</span> and fill in the form. A new rule takes effect immediately.
 
-![](/images/rate_limiting_user_add_rule.png)
+<img src="/images/rate_limiting_user_add_rule.png" alt="The Add rule dialog of an end user" width="544">
 
 | Field | Description |
 |-|-|
