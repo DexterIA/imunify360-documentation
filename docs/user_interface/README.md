@@ -128,7 +128,7 @@ Turn it on for a domain when it is the target of an automated flood — a script
 ![](/images/uam_user_overview.png)
 
 :::tip Note
-This tab appears only if <span class="notranslate">Under Attack Mode</span> is supported by the server, the server administrator has enabled it, and they have allowed end users to manage their own rules. If you do not see the tab, or you see a notice saying that the service is disabled, ask your hosting provider.
+This tab appears once the server administrator has allowed end users to manage their own rules. Whether the rules are applied also depends on how the server is set up. If you do not see the tab, see a notice saying that the service is disabled, or your rules seem to have no effect, ask your hosting provider.
 :::
 
 You only see and manage the rules you created, for the domains of your own account. Rules created by the server administrator are not shown here, but they still apply to your domains.
@@ -171,7 +171,7 @@ Use it against scrapers and floods that send far more requests than a person bro
 ![](/images/rate_limiting_user_overview.png)
 
 :::tip Note
-This tab appears only if <span class="notranslate">Rate Limiting</span> is supported by the server and the server administrator has allowed end users to manage their own rules. If you do not see the tab, or you see a notice saying that the service is disabled, ask your hosting provider.
+This tab appears once the server administrator has allowed end users to manage their own rules. Whether the rules are applied also depends on how the server is set up. If you do not see the tab, see a notice saying that the service is disabled, or your rules seem to have no effect, ask your hosting provider.
 :::
 
 You only see and manage the rules you created, for the domains of your own account. <span class="notranslate">**Default settings**</span> shows the limit that applies to requests no rule matches, and to the fields of your rules left at their default; only the server administrator can change it. Rules created by the server administrator are not shown here, but they still apply to your domains, and they are always checked before yours.

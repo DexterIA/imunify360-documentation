@@ -516,8 +516,8 @@ Exact ports and port-ranges to be allowed can be configured by the following fie
 
 The <span class="notranslate">WebShield</span> tab holds the WebShield protection features that the server administrator configures with rules rather than with the IP lists: <span class="notranslate">[Under Attack Mode](#under-attack-mode)</span> and <span class="notranslate">[Rate Limiting](#rate-limiting)</span>.
 
-:::warning The tab is shown only where the feature is available
-WebShield inspects requests inside the web server, so the features on this tab need WebShield running in module mode, with its module loaded into the web server. This is the default on cPanel with Apache. On environments where the module is not loaded — LiteSpeed-based cPanel setups, a server switched to the proxy mode (<span class="notranslate">`WEBSHIELD.mode: proxy`</span>), or a <span class="notranslate">ModSecurity</span> server where <span class="notranslate">_Enable WebShield_</span> is off (see <span class="notranslate">[WebShield settings](#webshield-settings)</span>) — the <span class="notranslate">WebShield</span> tab is not displayed at all, and opening its URL directly redirects back to the dashboard. The same applies to the end user interface.
+:::warning The features need the WebShield module
+WebShield inspects requests inside the web server, so the features on this tab need WebShield running in module mode, with its module loaded into the web server. This is the default on cPanel with Apache. On environments where the module is not loaded — LiteSpeed-based cPanel setups, a server switched to the proxy mode (<span class="notranslate">`WEBSHIELD.mode: proxy`</span>), or a <span class="notranslate">ModSecurity</span> server where <span class="notranslate">_Enable WebShield_</span> is off (see <span class="notranslate">[WebShield settings](#webshield-settings)</span>) — the <span class="notranslate">WebShield</span> tab is not displayed to the administrator at all, and opening its URL directly redirects back to the dashboard. The end user interface does not check this: there, each sub-tab depends only on its <span class="notranslate">**Show the service to end users**</span> switch, so end users can still open it and add rules, but their rules are not applied.
 
 Each feature has its own sub-tab, shown only where that feature is available. If a sub-tab is missing on a server where you expect it, check which WebShield features are available:
 
@@ -613,7 +613,7 @@ Click <span class="notranslate">**ADD**</span> and fill in the form.
 |-|-|
 |<span class="notranslate">Domain</span>|The domain to put under attack. Pick one of the server's domains from the list, or enter its wildcard — <span class="notranslate">`*.example.com`</span> covers the subdomains only, <span class="notranslate">`.example.com`</span> covers the domain and its subdomains. The domain of an existing rule cannot be changed.|
 |<span class="notranslate">Clearance cookie lifetime</span>|How long a visitor is trusted after solving the challenge. Choose one of the presets, or <span class="notranslate">Custom…</span> and enter a number followed by a unit — <span class="notranslate">`s`</span>, <span class="notranslate">`m`</span>, <span class="notranslate">`h`</span> or <span class="notranslate">`d`</span> — such as <span class="notranslate">`90m`</span> or <span class="notranslate">`6h`</span>, between 10 seconds and 3 days. The default is <span class="notranslate">`1h`</span>.|
-|<span class="notranslate">Label</span>|An optional note, up to 128 characters, shown in the rules table.|
+|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes: 128 Latin characters, fewer in other scripts.|
 |<span class="notranslate">Paths</span>|Which URLs of the domain the rule covers — see [Scoping a rule to paths](#scoping-a-rule-to-paths) below.|
 
 ![](/images/uam_admin_cookie_ttl.png)
@@ -720,7 +720,7 @@ The initial default settings are 300 requests per minute, the <span class="notra
 | Action | What happens to the requests above the limit |
 |-|-|
 |<span class="notranslate">Continue</span>|Nothing — the request goes through the remaining WebShield checks as usual. With <span class="notranslate">Log events</span> on, this is a monitor-only mode.|
-|<span class="notranslate">Allow</span>|The request is let through, skipping the remaining WebShield checks: Under Attack Mode, the Anti-bot Challenge and the ModSecurity rules. With a limit of <span class="notranslate">`0`</span>, the rule lets all matching traffic through — for example, your own monitoring.|
+|<span class="notranslate">Allow</span>|The request is let through, skipping the remaining WebShield checks: Under Attack Mode, the Anti-bot Challenge and, where WebShield applies the WAF rules with the <span class="notranslate">[Coraza engine](/ids_integration/#coraza-waf-engine-cl-coraza)</span>, those rules. <span class="notranslate">ModSecurity</span>, which runs in the web server, still checks the request. With a limit of <span class="notranslate">`0`</span>, the rule lets all matching traffic past WebShield — for example, your own monitoring.|
 |<span class="notranslate">Deny</span>|The request is rejected with an HTTP 403 error.|
 |<span class="notranslate">Splash</span>|The visitor gets a JavaScript splash challenge. Regular browsers solve it transparently and are then let through for the rule's time frame; simple bots that cannot run it never reach the site.|
 
@@ -728,7 +728,7 @@ The initial default settings are 300 requests per minute, the <span class="notra
 
 <span class="notranslate">**Test a request against the rules**</span> shows which rule governs the traffic from a given source IP address to a given domain, using the same matching as live traffic. The test does not count toward any limit.
 
-Enter the source IP address (an IPv4 or IPv6 address, or a network) and the domain, and click <span class="notranslate">**TEST**</span>. A path may be added to the domain, but it is ignored: the rules match on the IP address and the domain only. When a rule matches, its ID and label are reported and its row is highlighted in the table below; otherwise the verdict is <span class="notranslate">_No rule matches — the default settings apply_</span>.
+Enter the source IPv4 or IPv6 address and the domain, and click <span class="notranslate">**TEST**</span>. A network is accepted too, but only the address before the <span class="notranslate">`/`</span> is tested, not the whole network: <span class="notranslate">`192.0.2.0/24`</span> is tested as <span class="notranslate">`192.0.2.0`</span>. A path may be added to the domain, but it is ignored: the rules match on the IP address and the domain only. When a rule matches, its ID and label are reported and its row is highlighted in the table below; otherwise the verdict is <span class="notranslate">_No rule matches — the default settings apply_</span>.
 
 ![](/images/rate_limiting_admin_test_request.png)
 
@@ -760,7 +760,7 @@ Click <span class="notranslate">**ADD**</span> and fill in the form. A new rule 
 |<span class="notranslate">Domains</span>|The domains the rule covers, up to 32; add more with <span class="notranslate">**ADD DOMAIN**</span>. Pick one of the server's domains from the list, or enter its wildcard — <span class="notranslate">`*.example.com`</span> covers the subdomains only, <span class="notranslate">`.example.com`</span> covers the domain and its subdomains. A rule for all domains is not accepted; for a server-wide limit, use the default settings or a rule by IP address only.|
 |<span class="notranslate">IP addresses</span>|The source IPv4 or IPv6 addresses and networks the rule covers, separated by commas — for example, <span class="notranslate">`203.0.113.7, 10.0.0.0/24, 2001:db8::/32`</span>.|
 |<span class="notranslate">Limit</span>, <span class="notranslate">Time frame</span>, <span class="notranslate">Action</span>|As in the [default settings](#rate-limiting-default-settings). Leave a field at <span class="notranslate">_Default: …_</span> to inherit the value of the default settings.|
-|<span class="notranslate">Label</span>|An optional note, up to 128 characters, shown in the rules table.|
+|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes: 128 Latin characters, fewer in other scripts.|
 
 A rule needs at least one domain or IP address, and what it covers depends on which of the two it has:
 
