@@ -613,7 +613,7 @@ Click <span class="notranslate">**ADD**</span> and fill in the form.
 |-|-|
 |<span class="notranslate">Domain</span>|The domain to put under attack. Pick one of the server's domains from the list, or enter its wildcard — <span class="notranslate">`*.example.com`</span> covers the subdomains only, <span class="notranslate">`.example.com`</span> covers the domain and its subdomains. The domain of an existing rule cannot be changed.|
 |<span class="notranslate">Clearance cookie lifetime</span>|How long a visitor is trusted after solving the challenge. Choose one of the presets, or <span class="notranslate">Custom…</span> and enter a number followed by a unit — <span class="notranslate">`s`</span>, <span class="notranslate">`m`</span>, <span class="notranslate">`h`</span> or <span class="notranslate">`d`</span> — such as <span class="notranslate">`90m`</span> or <span class="notranslate">`6h`</span>, between 10 seconds and 3 days. The default is <span class="notranslate">`1h`</span>.|
-|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes: 128 Latin characters, fewer in other scripts.|
+|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes in UTF-8: 128 ASCII characters, fewer with accented letters or other scripts.|
 |<span class="notranslate">Paths</span>|Which URLs of the domain the rule covers — see [Scoping a rule to paths](#scoping-a-rule-to-paths) below.|
 
 ![](/images/uam_admin_cookie_ttl.png)
@@ -760,7 +760,7 @@ Click <span class="notranslate">**ADD**</span> and fill in the form. A new rule 
 |<span class="notranslate">Domains</span>|The domains the rule covers, up to 32; add more with <span class="notranslate">**ADD DOMAIN**</span>. Pick one of the server's domains from the list, or enter its wildcard — <span class="notranslate">`*.example.com`</span> covers the subdomains only, <span class="notranslate">`.example.com`</span> covers the domain and its subdomains. A rule for all domains is not accepted; for a server-wide limit, use the default settings or a rule by IP address only.|
 |<span class="notranslate">IP addresses</span>|The source IPv4 or IPv6 addresses and networks the rule covers, separated by commas — for example, <span class="notranslate">`203.0.113.7, 10.0.0.0/24, 2001:db8::/32`</span>.|
 |<span class="notranslate">Limit</span>, <span class="notranslate">Time frame</span>, <span class="notranslate">Action</span>|As in the [default settings](#rate-limiting-default-settings). Leave a field at <span class="notranslate">_Default: …_</span> to inherit the value of the default settings.|
-|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes: 128 Latin characters, fewer in other scripts.|
+|<span class="notranslate">Label</span>|An optional note shown in the rules table, up to 128 bytes in UTF-8: 128 ASCII characters, fewer with accented letters or other scripts.|
 
 A rule needs at least one domain or IP address, and what it covers depends on which of the two it has:
 
